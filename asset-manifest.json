@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/dylanlesesne24.github.io/csce242-react/static/css/main.9b9a26d6.css",
-    "main.js": "/dylanlesesne24.github.io/csce242-react/static/js/main.133142c3.js",
-    "index.html": "/dylanlesesne24.github.io/csce242-react/index.html",
-    "main.9b9a26d6.css.map": "/dylanlesesne24.github.io/csce242-react/static/css/main.9b9a26d6.css.map",
-    "main.133142c3.js.map": "/dylanlesesne24.github.io/csce242-react/static/js/main.133142c3.js.map"
+    "main.css": "/csce242-react/static/css/main.9b9a26d6.css",
+    "main.js": "/csce242-react/static/js/main.ac2b2f45.js",
+    "index.html": "/csce242-react/index.html",
+    "main.9b9a26d6.css.map": "/csce242-react/static/css/main.9b9a26d6.css.map",
+    "main.ac2b2f45.js.map": "/csce242-react/static/js/main.ac2b2f45.js.map"
   },
   "entrypoints": [
     "static/css/main.9b9a26d6.css",
-    "static/js/main.133142c3.js"
+    "static/js/main.ac2b2f45.js"
   ]
 }
