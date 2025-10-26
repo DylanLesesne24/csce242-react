@@ -4,16 +4,16 @@ import { Link } from "react-router-dom";
 export default function Header() {
   const [open, setOpen] = useState(false);
 
-  const toggle = () => setOpen(prev => !prev);
+  const toggle = () => setOpen((prev) => !prev);
 
   return (
     <header>
-      {/* top area: logo on left, centered title */}
+
       <div className="header-top">
-        <img id="main-logo" src="/images/logo.jpg" alt="Logo" />
+        <img id="main-logo" src={process.env.PUBLIC_URL + "/images/logo.jpg"} alt="Logo" />
         <h1>We Build PCs!</h1>
 
-        {/* mobile toggle (CSS shows/hides it) */}
+
         <button
           id="toggle-nav"
           onClick={toggle}
@@ -24,7 +24,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* navigation row (CSS expects id="main-nav") */}
+     
       <nav id="main-nav" className={open ? "open" : ""}>
         <ul id="nav-items">
           <li><Link to="/">Home</Link></li>

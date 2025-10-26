@@ -5,7 +5,7 @@ export default function IntelBuild() {
     <main>
       <section className="build-preview">
         <h2>Intel Build – $1300</h2>
-        <img src="/images/intelpc.jpg" alt="Intel Build" />
+        <img src={process.env.PUBLIC_URL + "/images/intelpc.jpg"} alt="Intel Build" />
         <ul className="spec-list">
           <li><strong>CPU:</strong> Intel i5</li>
           <li><strong>GPU:</strong> NVIDIA RTX 3060</li>

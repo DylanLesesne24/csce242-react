@@ -7,7 +7,7 @@ export default function Home() {
       <section id="hero">
         <h2>Your One Stop PC Building Resource!</h2>
         <p>Browse pre-built PCs or start learning how to build your own.</p>
-        <img src="/images/headerimage.jpg" alt="Hero Banner" />
+        <img src={process.env.PUBLIC_URL + "/images/headerimage.jpg"} alt="Hero Banner" />
       </section>
 
       <BuildList />

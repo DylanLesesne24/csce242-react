@@ -18,7 +18,10 @@ export default function ComponentsPage() {
         <div className="component-info-grid">
           {components.map((c, i) => (
             <div key={i} className="component-info-card">
-              <img src={c.img} alt={c.name} />
+              <img
+                src={process.env.PUBLIC_URL + c.img}
+                alt={c.name}
+              />
               <h3>{c.name}</h3>
               <p>{c.desc}</p>
             </div>

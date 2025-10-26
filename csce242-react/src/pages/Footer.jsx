@@ -4,8 +4,7 @@ export default function Footer() {
   return (
     <footer>
       <p>&copy; Dylan Lesesne</p>
-      <p style={{ fontSize: ".9rem" }}>
-      </p>
+      <p style={{ fontSize: ".9rem" }}></p>
     </footer>
   );
 }

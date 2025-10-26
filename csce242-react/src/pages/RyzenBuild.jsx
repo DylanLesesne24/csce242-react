@@ -5,7 +5,7 @@ export default function RyzenBuild() {
     <main>
       <section className="build-preview">
         <h2>Ryzen Build – $1450</h2>
-        <img src="/images/ryzenpc.jpg" alt="Ryzen Build" />
+        <img src={process.env.PUBLIC_URL + "/images/ryzenpc.jpg"} alt="Ryzen Build" />
         <ul className="spec-list">
           <li><strong>CPU:</strong> AMD Ryzen 5</li>
           <li><strong>GPU:</strong> NVIDIA RTX 3070</li>
