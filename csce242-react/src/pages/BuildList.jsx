@@ -1,5 +1,5 @@
 import React from "react";
-import builds from "../data/builds.json";
+import builds from "../components/builds.json";
 import PcCard from "./PcCard";
 
 export default function BuildList() {
