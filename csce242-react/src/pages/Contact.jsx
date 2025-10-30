@@ -1,6 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function Contact() {
+  const [result, setResult] = useState("");
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setResult("Sending....");
+    const formData = new FormData(event.target);
+    formData.append("access_key", "d9ac404a-d035-45b5-9053-83b46f496925");
+
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      setResult("Form Submitted Successfully");
+      event.target.reset();
+    } else {
+      setResult("Error");
+    }
+  };
+
   return (
     <main id="contact">
       <div className="contact-columns">
@@ -16,7 +38,7 @@ export default function Contact() {
         </section>
 
         <section className="one">
-          <form id="contact-form">
+          <form id="contact-form" onSubmit={onSubmit}>
             <p>
               <label htmlFor="name">Name:</label>
               <input id="name" name="name" type="text" required />
@@ -30,7 +52,7 @@ export default function Contact() {
               <textarea id="message" name="message" required></textarea>
             </p>
             <button type="submit">Submit Form</button>
-            <div id="contact-result"></div>
+            <div id="contact-result">{result}</div>
           </form>
         </section>
       </div>
