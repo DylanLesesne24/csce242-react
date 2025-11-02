@@ -1,19 +1,30 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
 
   const toggle = () => setOpen((prev) => !prev);
 
+  useEffect(() => {
+    setOpen(window.innerWidth >= 1200);
+    const onResize = () => setOpen(window.innerWidth >= 1200);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location]);
+
   return (
     <header>
-
       <div className="header-top">
-        <img id="main-logo" src={process.env.PUBLIC_URL + "/images/logo.jpg"} alt="Logo" />
+        <Link to="/">
+          <img id="main-logo" src={process.env.PUBLIC_URL + "/images/logo.jpg"} alt="Logo" />
+        </Link>
         <h1>We Build PCs!</h1>
-
-
         <button
           id="toggle-nav"
           onClick={toggle}
@@ -23,8 +34,6 @@ export default function Header() {
           ☰
         </button>
       </div>
-
-     
       <nav id="main-nav" className={open ? "open" : ""}>
         <ul id="nav-items">
           <li><Link to="/">Home</Link></li>

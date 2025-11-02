@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import builds from "../components/builds.json";
+import builds from "./builds.json";
 
 export default function BuildList({ autoplay = true, interval = 4500, maxSlides = null }) {
   const slides = Array.isArray(builds) ? builds.slice(0, maxSlides || builds.length) : [];

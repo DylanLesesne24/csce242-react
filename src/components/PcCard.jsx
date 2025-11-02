@@ -13,15 +13,11 @@ export default function PcCard({
   motherboard,
   id,
 }) {
-  // helper to resolve any incoming img value to the correct PUBLIC_URL path
   const resolveImg = (p) => {
     if (!p) return process.env.PUBLIC_URL + "/images/placeholder-300x200.jpg";
     if (p.startsWith("http")) return p;
-    // if already starts with /images or /something
     if (p.startsWith("/")) return process.env.PUBLIC_URL + p;
-    // if given "images/..." without leading slash
     if (p.startsWith("images/")) return process.env.PUBLIC_URL + "/" + p;
-    // otherwise treat as filename in images folder
     return process.env.PUBLIC_URL + "/images/" + p;
   };
 

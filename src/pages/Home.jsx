@@ -1,5 +1,5 @@
 import React from "react";
-import BuildList from "./BuildList";
+import BuildList from "../components/BuildList";
 
 export default function Home() {
   return (
