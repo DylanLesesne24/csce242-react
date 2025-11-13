@@ -9,17 +9,29 @@ export default function BuildDetail() {
   const [result, setResult] = useState("");
 
   useEffect(() => {
-    const API = process.env.REACT_APP_API_URL || "https://csce242-react-server.onrender.com/";
-    fetch(`${API}/api/builds/${encodeURIComponent(id)}`)
+    const rawApi = process.env.REACT_APP_API_URL || "https://csce242-react-server.onrender.com";
+    const API = rawApi.replace(/\/+$/g, "");
+    const url = `${API}/api/builds/${encodeURIComponent(id)}`;
+
+    console.log("DEBUG: fetching build from", url);
+    setLoading(true);
+    setError("");
+
+    fetch(url, { cache: "no-store" })
       .then((res) => {
-        if (!res.ok) throw new Error("Build not found");
+        console.log("DEBUG: build status", res.status, res.statusText);
+        if (!res.ok) {
+          return res.text().then((t) => { throw new Error(`HTTP ${res.status}: ${t.slice(0,200)}`); });
+        }
         return res.json();
       })
       .then((data) => {
+        console.log("DEBUG: build payload", data);
         setBuild(data);
         setLoading(false);
       })
       .catch((err) => {
+        console.error("DEBUG: load build error", err);
         setError(err.message || "Error loading build");
         setLoading(false);
       });

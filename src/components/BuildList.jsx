@@ -2,8 +2,12 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function BuildList({ autoplay = true, interval = 4500, maxSlides = null }) {
-  const [rawBuilds, setRawBuilds] = useState([]);
-  const slides = useMemo(() => (Array.isArray(rawBuilds) ? rawBuilds.slice(0, maxSlides || rawBuilds.length) : []), [rawBuilds, maxSlides]);
+  // null = loading, [] = empty
+  const [rawBuilds, setRawBuilds] = useState(null);
+  const slides = useMemo(
+    () => (Array.isArray(rawBuilds) ? rawBuilds.slice(0, maxSlides || rawBuilds.length) : []),
+    [rawBuilds, maxSlides]
+  );
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const trackRef = useRef(null);
@@ -11,11 +15,25 @@ export default function BuildList({ autoplay = true, interval = 4500, maxSlides 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const API = process.env.REACT_APP_API_URL || "https://csce242-react-server.onrender.com/";
-    fetch(`${API}/api/builds`)
-      .then((r) => r.json())
-      .then((data) => setRawBuilds(Array.isArray(data) ? data : []))
-      .catch(() => setRawBuilds([]));
+    const rawApi = process.env.REACT_APP_API_URL || "https://csce242-react-server.onrender.com";
+    const API = rawApi.replace(/\/+$/g, ""); // strip trailing slashes
+    const url = `${API}/api/builds`;
+    console.log("DEBUG: fetching builds from", url);
+
+    fetch(url, { cache: "no-store" })
+      .then((r) => {
+        console.log("DEBUG: /api/builds status", r.status, r.statusText);
+        if (!r.ok) return r.text().then((t) => { throw new Error(`HTTP ${r.status}: ${t.slice(0,200)}`); });
+        return r.json();
+      })
+      .then((data) => {
+        console.log("DEBUG: builds payload", data);
+        setRawBuilds(Array.isArray(data) ? data : []);
+      })
+      .catch((err) => {
+        console.error("DEBUG: failed to load builds:", err);
+        setRawBuilds([]); // fallback to empty but we logged the issue
+      });
   }, []);
 
   useEffect(() => {
@@ -57,6 +75,16 @@ export default function BuildList({ autoplay = true, interval = 4500, maxSlides 
     navigate(`/builds/${encodeURIComponent(id)}`);
   };
 
+  // Loading state
+  if (rawBuilds === null) {
+    return (
+      <section id="prebuilt">
+        <h2>Pre-Built PCs</h2>
+        <div>Loading builds…</div>
+      </section>
+    );
+  }
+
   if (!slides.length) {
     return (
       <section id="prebuilt">
@@ -66,13 +94,8 @@ export default function BuildList({ autoplay = true, interval = 4500, maxSlides 
     );
   }
 
-  function getComputedRootColor(varName) {
-    try {
-      return getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
-    } catch (e) {
-      return null;
-    }
-  }
+  // optional: debug log slides length
+  // console.log("DEBUG: slides length", slides.length);
 
   return (
     <section id="prebuilt">
