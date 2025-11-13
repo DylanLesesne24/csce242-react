@@ -1,5 +1,6 @@
+
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -12,12 +13,12 @@ import BuildYourPc from "./pages/BuildYourPc";
 import Contact from "./pages/Contact";
 import IntelBuild from "./pages/IntelBuild";
 import RyzenBuild from "./pages/RyzenBuild";
-import BuildDetail from "./pages/BuildDetail"; 
+import BuildDetail from "./pages/BuildDetail";
 
 export default function App() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <Header />  
+    <HashRouter>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -30,6 +31,6 @@ export default function App() {
         <Route path="/builds/:id" element={<BuildDetail />} />
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
