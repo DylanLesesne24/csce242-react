@@ -9,7 +9,7 @@ export default function BuildDetail() {
   const [result, setResult] = useState("");
 
   useEffect(() => {
-    const API = process.env.REACT_APP_API_URL || "http://localhost:5000";
+    const API = process.env.REACT_APP_API_URL || "https://csce242-react-server.onrender.com/";
     fetch(`${API}/api/builds/${encodeURIComponent(id)}`)
       .then((res) => {
         if (!res.ok) throw new Error("Build not found");

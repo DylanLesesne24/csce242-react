@@ -43,5 +43,5 @@
   "devDependencies": {
     "gh-pages": "^6.3.0"
   },
-  "proxy": "https://csce242-react-server.onrender.com/api/builds"
+  "proxy": "https://csce242-react-server.onrender.com/"
 }

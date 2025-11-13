@@ -11,7 +11,7 @@ export default function BuildList({ autoplay = true, interval = 4500, maxSlides 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const API = process.env.REACT_APP_API_URL || "http://localhost:5000";
+    const API = process.env.REACT_APP_API_URL || "https://csce242-react-server.onrender.com/";
     fetch(`${API}/api/builds`)
       .then((r) => r.json())
       .then((data) => setRawBuilds(Array.isArray(data) ? data : []))
