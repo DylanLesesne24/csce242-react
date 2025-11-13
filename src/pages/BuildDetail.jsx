@@ -21,7 +21,7 @@ export default function BuildDetail() {
       .then((res) => {
         console.log("DEBUG: build status", res.status, res.statusText);
         if (!res.ok) {
-          return res.text().then((t) => { throw new Error(`HTTP ${res.status}: ${t.slice(0,200)}`); });
+          return res.text().then((t) => { throw new Error(`HTTP ${res.status}: ${t.slice(0, 200)}`); });
         }
         return res.json();
       })

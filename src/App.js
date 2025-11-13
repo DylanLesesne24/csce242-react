@@ -13,9 +13,10 @@ import Contact from "./pages/Contact";
 import IntelBuild from "./pages/IntelBuild";
 import RyzenBuild from "./pages/RyzenBuild";
 import BuildDetail from "./pages/BuildDetail"; 
+
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Header />  
       <Routes>
         <Route path="/" element={<Home />} />

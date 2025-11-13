@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function BuildList({ autoplay = true, interval = 4500, maxSlides = null }) {
-  // null = loading, [] = empty
   const [rawBuilds, setRawBuilds] = useState(null);
   const slides = useMemo(
     () => (Array.isArray(rawBuilds) ? rawBuilds.slice(0, maxSlides || rawBuilds.length) : []),
@@ -16,14 +15,14 @@ export default function BuildList({ autoplay = true, interval = 4500, maxSlides 
 
   useEffect(() => {
     const rawApi = process.env.REACT_APP_API_URL || "https://csce242-react-server.onrender.com";
-    const API = rawApi.replace(/\/+$/g, ""); // strip trailing slashes
+    const API = rawApi.replace(/\/+$/g, "");
     const url = `${API}/api/builds`;
     console.log("DEBUG: fetching builds from", url);
 
     fetch(url, { cache: "no-store" })
       .then((r) => {
         console.log("DEBUG: /api/builds status", r.status, r.statusText);
-        if (!r.ok) return r.text().then((t) => { throw new Error(`HTTP ${r.status}: ${t.slice(0,200)}`); });
+        if (!r.ok) return r.text().then((t) => { throw new Error(`HTTP ${r.status}: ${t.slice(0, 200)}`); });
         return r.json();
       })
       .then((data) => {
@@ -32,7 +31,7 @@ export default function BuildList({ autoplay = true, interval = 4500, maxSlides 
       })
       .catch((err) => {
         console.error("DEBUG: failed to load builds:", err);
-        setRawBuilds([]); // fallback to empty but we logged the issue
+        setRawBuilds([]);
       });
   }, []);
 
@@ -75,7 +74,6 @@ export default function BuildList({ autoplay = true, interval = 4500, maxSlides 
     navigate(`/builds/${encodeURIComponent(id)}`);
   };
 
-  // Loading state
   if (rawBuilds === null) {
     return (
       <section id="prebuilt">
@@ -93,9 +91,6 @@ export default function BuildList({ autoplay = true, interval = 4500, maxSlides 
       </section>
     );
   }
-
-  // optional: debug log slides length
-  // console.log("DEBUG: slides length", slides.length);
 
   return (
     <section id="prebuilt">
