@@ -28,7 +28,7 @@ export default function BuildYourPc() {
 
   async function handleViewBuild() {
     try {
-      const res = await fetch("http://localhost:5050/api/userbuilds", {
+      const res = await fetch("https://csce242-react-server.onrender.com", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
@@ -42,7 +42,7 @@ export default function BuildYourPc() {
         alert("Error saving build to MongoDB.");
       }
     } catch (err) {
-      alert("Could not connect to the server.");
+      alert("Could not connect to the server!");
       console.error(err);
     }
   }
