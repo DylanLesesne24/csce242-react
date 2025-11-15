@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 export default function BuildYourPc() {
+  const API_BASE = "https://csce242-react-server.onrender.com";
+
   const [form, setForm] = useState({
     cpu: "",
     gpu: "",
@@ -28,22 +30,32 @@ export default function BuildYourPc() {
 
   async function handleViewBuild() {
     try {
-      const res = await fetch("https://csce242-react-server.onrender.com", {
+      const res = await fetch(`${API_BASE}/api/userbuilds`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form)
       });
 
-      const data = await res.json();
-      if (data.success) {
+      const text = await res.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (err) {
+        console.error("Non-JSON response from server:", text);
+        alert("Server returned a non-JSON response. Check console for details.");
+        return;
+      }
+
+      if (res.ok && data && data.success) {
         setCreatedBuild(data.build);
         alert("Build stored successfully!");
       } else {
-        alert("Error saving build to MongoDB.");
+        console.error("Server rejected request:", data || text);
+        alert("Error saving build: " + (data && (data.message || JSON.stringify(data)) || text));
       }
     } catch (err) {
+      console.error("Network or fetch error:", err);
       alert("Could not connect to the server!");
-      console.error(err);
     }
   }
 
